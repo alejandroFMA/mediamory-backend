@@ -1,4 +1,4 @@
-import { User } from "../models/users.model.js";
+import User from "../models/users.model.js";
 import { createToken } from "../middleware/jwt.js";
 import bcrypt from "bcrypt";
 export const getAllUsers = async (req, res) => {
@@ -13,6 +13,11 @@ export const getAllUsers = async (req, res) => {
 export const getUserById = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
     res.status(200).json(user);
   } catch (error) {
     res.status(500).json({ message: error.message });
