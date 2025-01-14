@@ -1,5 +1,5 @@
 import User from "../models/users.model.js";
-import { createToken } from "../middleware/jwt.js";
+import { createToken } from "../utils/jwt.js";
 import bcrypt from "bcrypt";
 export const getAllUsers = async (req, res) => {
   try {
