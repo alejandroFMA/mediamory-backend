@@ -1,5 +1,6 @@
-import Follow from "../models/follow.model";
+import Follow from "../models/follow.model.js";
 
+//Le Sigo?
 export const followUsersId = async (userId) => {
   if (!userId) {
     throw new Error("userId is required");
@@ -23,6 +24,7 @@ export const followUsersId = async (userId) => {
   }
 };
 
+//Me sigue este usuario?
 export const followThisUser = async (userId, profileId) => {
   try {
     let following = await Follow.findOne({ user: userId, followed: profileId });

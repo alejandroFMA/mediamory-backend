@@ -5,14 +5,14 @@ import {
   getAllUsers,
   updateUser,
   deleteUser,
-  login,
 } from "../controllers/users.controller.js";
+// import { auth } from "../middleware/auth.js";
 
 const router = Router();
 
+router.post("/register", createUser);
 router.get("/", getAllUsers);
-router.post("/", createUser);
-router.post("/login", login);
+
 router.get("/:id", getUserById);
 router.put("/:id", updateUser);
 router.delete("/:id", deleteUser);

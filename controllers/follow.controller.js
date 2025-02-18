@@ -1,5 +1,5 @@
-import Follow from "../models/follow.model";
-import { followUsersId, followThisUser } from "../utils/followUsers";
+import Follow from "../models/follow.model.js";
+import { followUsersId, followThisUser } from "../utils/followUsers.js";
 
 export const createFollow = async (req, res) => {
   try {

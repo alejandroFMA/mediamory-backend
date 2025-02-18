@@ -4,6 +4,7 @@ import "./config/db.js";
 import userRoutes from "./routes/users.routes.js";
 import memoryRoutes from "./routes/memory.routes.js";
 import followRoutes from "./routes/follows.routes.js";
+import authRoutes from "./routes/auth.routes.js";
 
 const app = express();
 const port = 3000;
@@ -12,6 +13,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/memory", memoryRoutes);
 app.use("/api/follow", followRoutes);

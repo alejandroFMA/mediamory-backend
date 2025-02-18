@@ -89,21 +89,29 @@ export const deleteUser = async (req, res) => {
 
 export const login = async (req, res) => {
   try {
-    if (!(req.body.email || req.body.username) || !req.body.password) {
-      return res
-        .status(400)
-        .json({ message: "Email or username and password are required" });
+    console.log(req.body);
+    const { email, username, password } = req.body;
+
+    if (!(email || username) || !password) {
+      return res.status(400).json({
+        status: "error",
+        message: "Email or username and password are required",
+      });
     }
 
     const user = await User.findOne({
-      $or: [{ email: req.body.email }, { username: req.body.username }],
+      $or: [{ email: email || null }, { username: username || null }],
     });
 
+    console.log(user);
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({
+        status: "error",
+        message: "User not found",
+      });
     }
 
-    let pwd = await bcrypt.compare(req.body.password, user.password);
+    let pwd = await bcrypt.compare(password, user.password);
 
     if (!pwd) {
       return res.status(400).json({
@@ -115,11 +123,15 @@ export const login = async (req, res) => {
     const token = createToken(user);
 
     res.status(200).json({
+      status: "success",
       message: "User logged in successfully",
-      user: { id: user._id, username: user.username },
       token,
     });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error("Login Error:", error);
+    res.status(500).json({
+      status: "error",
+      message: error.message,
+    });
   }
 };
