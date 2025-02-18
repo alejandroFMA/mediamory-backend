@@ -6,6 +6,7 @@ import bcrypt from "bcrypt";
 export const login = async (req, res) => {
   try {
     const { email, username, password } = req.body;
+
     if ((!email && !username) || !password) {
       return res.status(400).json({
         status: "error",
@@ -36,19 +37,11 @@ export const login = async (req, res) => {
 
     const token = createToken(user);
 
-    const options = {
-      maxAge: 1000 * 60 * 60, // would expire after 1 hour
-      // httpOnly: true, // The cookie only accessible by the web server
-      // secure: true, // Only transmit cookie over https
-      // sameSite: "None", // only send cookies if the request is coming from the same domain of the website
-    };
-
-    res.cookie("SessionID", token, options);
+    res.setHeader("Authorization", `Bearer ${token}`);
 
     return res.status(200).json({
       status: "success",
       message: "User logged in successfully",
-      token,
     });
   } catch (error) {
     console.error("Login Error:", error);

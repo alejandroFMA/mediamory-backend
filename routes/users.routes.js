@@ -6,7 +6,6 @@ import {
   updateUser,
   deleteUser,
 } from "../controllers/users.controller.js";
-// import { auth } from "../middleware/auth.js";
 
 const router = Router();
 

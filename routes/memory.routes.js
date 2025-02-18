@@ -6,13 +6,14 @@ import {
   updateUserMemory,
   deleteUserMemory,
 } from "../controllers/memory.controller.js";
+import auth from "../middleware/auth.js";
 
 const router = Router();
 
-router.get("all/:id", getAllUserMemories);
-router.get("/:id", getUserMemoryById);
-router.post("/", createUserMemory);
-router.put("/:id", updateUserMemory);
-router.delete("/:id", deleteUserMemory);
+router.get("all/:id", auth, getAllUserMemories);
+router.get("/:id", auth, getUserMemoryById);
+router.post("/", auth, createUserMemory);
+router.put("/:id", auth, updateUserMemory);
+router.delete("/:id", auth, deleteUserMemory);
 
 export default router;

@@ -24,7 +24,7 @@ export const followUsersId = async (userId) => {
   }
 };
 
-//Me sigue este usuario?
+// ¿Me sigue este usuario?
 export const followThisUser = async (userId, profileId) => {
   try {
     let following = await Follow.findOne({ user: userId, followed: profileId });
